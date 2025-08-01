@@ -1,0 +1,1361 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berkah Rental - Sewa Mobil Nyaman & Terpercaya</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --purple-dark: #4A148C;
+            --purple-light: #9C27B0;
+            --black: #212121;
+            --yellow: #FFD600;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            color: var(--black);
+        }
+        
+        /* Header & Navigation */
+        header {
+            background-color: var(--purple-dark);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            color: var(--white);
+            font-weight: bold;
+            font-size: 1.8rem;
+        }
+        
+        .logo span {
+            color: var(--yellow);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover {
+            color: var(--yellow);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+        
+        /* Hero Section - Fixed */
+        .hero {
+            height: 100vh;
+            margin-top: 70px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0;
+            margin: 0;
+        }
+        
+        .slide.active {
+            opacity: 1;
+        }
+        
+        .slide img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+        
+        .slide-content h1,
+        .slide-content p {
+            margin-top: 0;
+        }
+        
+        .slide h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--yellow);
+        }
+        
+        .slide p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--yellow);
+            color: var(--black);
+            padding: 0.8rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            background-color: var(--purple-light);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .slide-indicators {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            z-index: 2;
+        }
+        
+        .indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            margin: 0 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .indicator.active {
+            background-color: var(--yellow);
+        }
+        
+        /* Section Styling */
+        section {
+            padding: 5rem 5%;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--purple-dark);
+            margin-bottom: 1rem;
+        }
+        
+        .section-title p {
+            color: #666;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Tentang Kami */
+        .about {
+            background-color: var(--white);
+        }
+        
+        .about-content {
+            display: flex;
+            align-items: center;
+            gap: 3rem;
+        }
+        
+        .about-img {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .about-text {
+            flex: 1;
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            color: var(--purple-dark);
+            margin-bottom: 1.5rem;
+        }
+        
+        .about-text p {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        /* Keunggulan Kami */
+        .features {
+            background-color: #f9f9f9;
+        }
+        
+        .features-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .feature-card {
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: var(--purple-light);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--purple-dark);
+        }
+        
+        /* Gallery Mobil */
+        .gallery {
+            background-color: var(--white);
+        }
+        
+        .car-filter {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .filter-btn {
+            padding: 0.5rem 1.5rem;
+            background-color: #eee;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .filter-btn.active, .filter-btn:hover {
+            background-color: var(--purple-dark);
+            color: var(--white);
+        }
+        
+        .car-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .car-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+        
+        .car-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .car-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .car-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        
+        .car-card:hover .car-img img {
+            transform: scale(1.1);
+        }
+        
+        .car-info {
+            padding: 1.5rem;
+        }
+        
+        .car-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--purple-dark);
+        }
+        
+        .car-specs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .spec-item {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+        
+        .spec-item i {
+            margin-right: 0.5rem;
+            color: var(--purple-light);
+        }
+        
+        .car-price {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 1.5rem;
+        }
+        
+        .price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--purple-dark);
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: #666;
+        }
+        
+        /* Formulir Booking */
+        .booking {
+            background-color: var(--purple-dark);
+            color: var(--white);
+        }
+        
+        .booking .section-title h2 {
+            color: var(--white);
+        }
+        
+        .booking .section-title p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .booking-form {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            flex: 1;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--black);
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: var(--yellow);
+            color: var(--black);
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: block;
+            margin: 2rem auto 0;
+        }
+        
+        .submit-btn:hover {
+            background-color: var(--purple-light);
+            color: var(--white);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Tanya Jawab */
+        .faq {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .faq-item {
+            margin-bottom: 1rem;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .faq-question {
+            background-color: var(--white);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: #f5f5f5;
+        }
+        
+        .faq-question h3 {
+            font-size: 1.2rem;
+            color: var(--purple-dark);
+        }
+        
+        .faq-question i {
+            color: var(--purple-light);
+            transition: transform 0.3s;
+        }
+        
+        .faq-answer {
+            background-color: var(--white);
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out, padding 0.3s ease;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+            padding: 0 1.5rem 1.5rem;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+        }
+        
+        /* Sosial Media */
+        .social {
+            background-color: var(--white);
+        }
+        
+        .social-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--purple-light);
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        
+        .social-link:hover {
+            background-color: var(--purple-dark);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--black);
+            color: var(--white);
+            padding: 3rem 5%;
+        }
+        
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            color: var(--yellow);
+        }
+        
+        .footer-col p, .footer-col a {
+            color: #bbb;
+            line-height: 1.6;
+            margin-bottom: 0.8rem;
+            display: block;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-col a:hover {
+            color: var(--yellow);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 2rem;
+            border-top: 1px solid #444;
+            color: #888;
+        }
+        
+        /* Testimoni Pelanggan */
+        .testimonial {
+            background-color: #f9f9f9;
+            padding: 5rem 5%;
+        }
+
+        .testimonial-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background-color: var(--white);
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+        }
+
+        .rating {
+            color: var(--yellow);
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+
+        .author-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1rem;
+            border: 3px solid var(--purple-light);
+        }
+
+        .author-info h4 {
+            color: var(--purple-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .author-info p {
+            color: #777;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                flex-direction: column;
+            }
+            
+            .form-row {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+                color: var(--white);
+                font-size: 1.5rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--purple-dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: left 0.3s;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .slide h1 {
+                font-size: 2rem;
+            }
+            
+            .slide p {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <link rel="icon" href="image/vaticon/vaticon.png" type="image/png">
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <nav>
+            <div class="logo">Berkah<span>Rental</span></div>
+            <ul class="nav-links">
+                <li><a href="#home">Beranda</a></li>
+                <li><a href="#about">Tentang Kami</a></li>
+                <li><a href="#gallery">Gallery</a></li>
+                <li><a href="#testimonial">Testimoni</a></li>
+                <li><a href="#booking">Booking</a></li>
+                <li><a href="#social">Kontak</a></li>
+            </ul>
+            <div class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section - Fixed -->
+    <section class="hero" id="home">
+        <div class="slide active">
+            <img src=image/header/avanza.jpg alt="Sewa Mobil">
+            <div class="slide-content">
+                <h1>Sewa Mobil Berkualitas dengan Harga Terbaik</h1>
+                <p>Nikmati perjalanan Anda dengan kendaraan terbaik dan pelayanan profesional dari tim kami.</p>
+                <a href="#booking" class="btn">Pesan Sekarang</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src=image/header/inova.jpg alt="Fleet Mobil">
+            <div class="slide-content">
+                <h1>Fleet Terlengkap untuk Setiap Kebutuhan</h1>
+                <p>Dari mobil keluarga hingga mobil mewah, kami memiliki pilihan yang tepat untuk Anda.</p>
+                <a href="#gallery" class="btn">Lihat Gallery</a>
+            </div>
+        </div>
+        <div class="slide">
+            <img src=image/header/expander.jpg alt="Layanan 24 Jam">
+            <div class="slide-content">
+                <h1>Layanan 24 Jam Siap Membantu Anda</h1>
+                <p>Tim profesional kami siap melayani Anda kapan saja, di mana saja.</p>
+                <a href="#social" class="btn">Hubungi Kami</a>
+            </div>
+        </div>
+        <div class="slide-indicators">
+            <div class="indicator active"></div>
+            <div class="indicator"></div>
+            <div class="indicator"></div>
+        </div>
+    </section>
+
+    <!-- Tentang Kami -->
+    <section class="about" id="about">
+        <div class="section-title">
+            <h2>Tentang Kami</h2>
+            <p>Berkah Rental adalah perusahaan rental mobil terpercaya dengan pengalaman lebih dari 10 tahun melayani pelanggan di seluruh Indonesia.</p>
+        </div>
+        <div class="about-content">
+            <div class="about-img">
+                <img src=image/header/avanza.jpg alt="Tentang Kami">
+            </div>
+            <div class="about-text">
+                <h3>Mengapa Memilih Kami?</h3>
+                <p>Berkah Rental didirikan pada tahun 2010 dengan misi memberikan pengalaman sewa mobil yang mudah, aman, dan nyaman bagi semua pelanggan. Kami memahami bahwa setiap perjalanan adalah pengalaman berharga, dan kendaraan yang tepat dapat membuat semua perbedaan.</p>
+                <p>Dengan lebih dari 100 armada kendaraan dari berbagai merek dan tipe, kami siap memenuhi kebutuhan transportasi Anda, baik untuk keperluan bisnis, keluarga, maupun liburan.</p>
+                <p>Tim profesional kami selalu siap memberikan pelayanan terbaik dengan standar tinggi untuk memastikan kepuasan pelanggan. Keamanan dan kenyamanan Anda adalah prioritas utama kami.</p>
+                <a href="#features" class="btn">Lihat Keunggulan Kami</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Keunggulan Kami -->
+    <section class="features" id="features">
+        <div class="section-title">
+            <h2>Keunggulan Kami</h2>
+            <p>Berbagai keuntungan yang akan Anda dapatkan ketika memilih kami sebagai partner rental mobil Anda.</p>
+        </div>
+        <div class="features-container">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <h3>Armada Terawat</h3>
+                <p>Semua kendaraan kami melalui pemeriksaan rutin untuk memastikan kondisi terbaik dan keamanan maksimal.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-money-bill-wave"></i>
+                </div>
+                <h3>Harga Kompetitif</h3>
+                <p>Kami menawarkan harga terbaik dengan kualitas pelayanan premium tanpa biaya tersembunyi.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h3>Layanan 24/7</h3>
+                <p>Tim customer service kami siap membantu Anda kapan saja, bahkan di hari libur sekalipun.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-car-side"></i>
+                </div>
+                <h3>Pengantaran Gratis</h3>
+                <p>Gratis pengantaran mobil ke alamat Anda di area tertentu untuk kenyamanan lebih.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-file-contract"></i>
+                </div>
+                <h3>Proses Mudah</h3>
+                <p>Proses sewa yang sederhana dengan persyaratan minimal dan dokumentasi yang jelas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-gas-pump"></i>
+                </div>
+                <h3>Bahan Bakar Penuh</h3>
+                <p>Semua kendaraan diserahkan dengan kondisi bahan bakar penuh untuk kenyamanan Anda.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Mobil -->
+    <section class="gallery" id="gallery">
+        <div class="section-title">
+            <h2>Gallery Mobil</h2>
+            <p>Pilih kendaraan yang sesuai dengan kebutuhan perjalanan Anda.</p>
+        </div>
+        <div class="car-filter">
+            <button class="filter-btn active" data-filter="all">Semua</button>
+            <button class="filter-btn" data-filter="family">Keluarga</button>
+            <button class="filter-btn" data-filter="suv">SUV</button>
+            <button class="filter-btn" data-filter="sport">Sport</button>
+            <button class="filter-btn" data-filter="luxury">Mewah</button>
+        </div>
+        <div class="car-grid">
+            <!-- Mobil 1 -->
+            <div class="car-card" data-category="family">
+                <div class="car-img">
+                    <img src=image/gallery/Avanza-lama.png alt="Toyota Avanza">
+                </div>
+                <div class="car-info">
+                    <h3>Toyota Avanza Lama</h3>
+                    <div class="car-specs">
+                        <div class="spec-item"><i class="fas fa-users"></i> 7 Kursi</div>
+                        <div class="spec-item"><i class="fas fa-gas-pump"></i> Bensin</div>
+                        <div class="spec-item"><i class="fas fa-tachometer-alt"></i> Manual</div>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">Rp 350.000 <span>/hari</span></div>
+                        <a href="#booking" class="btn">Sewa</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobil 2 -->
+            <div class="car-card" data-category="suv">
+                <div class="car-img">
+                    <img src=image/gallery/Fortuner.png alt="Toyota Fortuner">
+                </div>
+                <div class="car-info">
+                    <h3>Toyota Fortuner</h3>
+                    <div class="car-specs">
+                        <div class="spec-item"><i class="fas fa-users"></i> 7 Kursi</div>
+                        <div class="spec-item"><i class="fas fa-gas-pump"></i> Diesel</div>
+                        <div class="spec-item"><i class="fas fa-tachometer-alt"></i> Automatic</div>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">Rp 800.000 <span>/hari</span></div>
+                        <a href="#booking" class="btn">Sewa</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobil 3 -->
+            <div class="car-card" data-category="luxury">
+                <div class="car-img">
+                    <img src=image/gallery/Alphard.png alt="Mercedes-Benz E-Class">
+                </div>
+                <div class="car-info">
+                    <h3>Toyota Alpard</h3>
+                    <div class="car-specs">
+                        <div class="spec-item"><i class="fas fa-users"></i> 5 Kursi</div>
+                        <div class="spec-item"><i class="fas fa-gas-pump"></i> Bensin</div>
+                        <div class="spec-item"><i class="fas fa-tachometer-alt"></i> Automatic</div>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">Rp 2.500.000 <span>/hari</span></div>
+                        <a href="#booking" class="btn">Sewa</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobil 4 -->
+            <div class="car-card" data-category="sport">
+                <div class="car-img">
+                    <img src=image/gallery/bmw2.jpg alt="Porsche 911">
+                </div>
+                <div class="car-info">
+                    <h3>BMW</h3>
+                    <div class="car-specs">
+                        <div class="spec-item"><i class="fas fa-users"></i> 2 Kursi</div>
+                        <div class="spec-item"><i class="fas fa-gas-pump"></i> Bensin</div>
+                        <div class="spec-item"><i class="fas fa-tachometer-alt"></i> Automatic</div>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">Rp 5.000.000 <span>/hari</span></div>
+                        <a href="#booking" class="btn">Sewa</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobil 5 -->
+            <div class="car-card" data-category="family">
+                <div class="car-img">
+                    <img src=image/gallery/Avanza.png alt="Honda Mobilio">
+                </div>
+                <div class="car-info">
+                    <h3>Toyota Avanza</h3>
+                    <div class="car-specs">
+                        <div class="spec-item"><i class="fas fa-users"></i> 7 Kursi</div>
+                        <div class="spec-item"><i class="fas fa-gas-pump"></i> Bensin</div>
+                        <div class="spec-item"><i class="fas fa-tachometer-alt"></i> Automatic</div>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">Rp 400.000 <span>/hari</span></div>
+                        <a href="#booking" class="btn">Sewa</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobil 6 -->
+            <div class="car-card" data-category="suv">
+                <div class="car-img">
+                    <img src=image/gallery/Pajero-Sport.png alt="Mitsubishi Pajero Sport">
+                </div>
+                <div class="car-info">
+                    <h3>Mitsubishi Pajero Sport</h3>
+                    <div class="car-specs">
+                        <div class="spec-item"><i class="fas fa-users"></i> 7 Kursi</div>
+                        <div class="spec-item"><i class="fas fa-gas-pump"></i> Diesel</div>
+                        <div class="spec-item"><i class="fas fa-tachometer-alt"></i> Automatic</div>
+                    </div>
+                    <div class="car-price">
+                        <div class="price">Rp 900.000 <span>/hari</span></div>
+                        <a href="#booking" class="btn">Sewa</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimoni Pelanggan -->
+    <section class="testimonial" id="testimonial">
+        <div class="section-title">
+            <h2>Testimoni Pelanggan</h2>
+            <p>Apa kata mereka yang sudah menggunakan layanan kami</p>
+        </div>
+        <div class="testimonial-container">
+            <!-- Testimoni 1 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Pelayanan sangat memuaskan! Mobil bersih dan nyaman. Proses sewa mudah dan cepat. Pasti akan menggunakan jasa ini lagi."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Customer 1" class="author-img">
+                    <div class="author-info">
+                        <h4>Budi Santoso</h4>
+                        <p>Pengguna Toyota Fortuner</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimoni 2 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="testimonial-text">"Armada terawat dan harga bersaing. Sopir yang disediakan sangat profesional dan tahu jalan-jalan alternatif di Jakarta."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Customer 2" class="author-img">
+                    <div class="author-info">
+                        <h4>Anita Wijaya</h4>
+                        <p>Pengguna Honda Mobilio</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testimoni 3 -->
+            <div class="testimonial-card">
+                <div class="testimonial-content">
+                    <div class="rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <p class="testimonial-text">"Sangat recommended! Untuk acara pernikahan kami, mobil Mercedes E-Class membuat tamu-tamu terkesan. Pelayanan 24 jam sangat membantu."</p>
+                </div>
+                <div class="testimonial-author">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Customer 3" class="author-img">
+                    <div class="author-info">
+                        <h4>Rudi Hermawan</h4>
+                        <p>Pengguna Mercedes E-Class</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulir Booking -->
+    <section class="booking" id="booking">
+        <div class="section-title">
+            <h2>Formulir Booking</h2>
+            <p>Isi formulir berikut untuk memesan kendaraan pilihan Anda.</p>
+        </div>
+        <form id="bookingForm" class="booking-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Nama Lengkap</label>
+                    <input type="text" id="name" name="name" placeholder="Masukkan nama lengkap" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Masukkan email" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Nomor Telepon</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Masukkan nomor telepon" required>
+                </div>
+                <div class="form-group">
+                    <label for="car-type">Jenis Mobil</label>
+                    <select id="car-type" name="car-type" required>
+                        <option value="">Pilih Jenis Mobil</option>
+                        <option value="Toyota Avanza">Toyota Avanza</option>
+                        <option value="Toyota Fortuner">Toyota Fortuner</option>
+                        <option value="Mercedes-Benz E-Class">Mercedes-Benz E-Class</option>
+                        <option value="Porsche 911">Porsche 911</option>
+                        <option value="Honda Mobilio">Honda Mobilio</option>
+                        <option value="Mitsubishi Pajero Sport">Mitsubishi Pajero Sport</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="pickup-date">Tanggal Pengambilan</label>
+                    <input type="date" id="pickup-date" name="pickup-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="return-date">Tanggal Pengembalian</label>
+                    <input type="date" id="return-date" name="return-date" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="address">Alamat Pengantaran (Opsional)</label>
+                <input type="text" id="address" name="address" placeholder="Masukkan alamat jika ingin diantar">
+            </div>
+            <div class="form-group">
+                <label for="message">Pesan Tambahan</label>
+                <textarea id="message" name="message" placeholder="Masukkan pesan tambahan jika ada"></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Kirim Pesanan</button>
+        </form>
+    </section>
+
+    <!-- Tanya Jawab -->
+    <section class="faq" id="faq">
+        <div class="section-title">
+            <h2>Pertanyaan Umum</h2>
+            <p>Berikut adalah beberapa pertanyaan yang sering diajukan oleh pelanggan kami.</p>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Apa saja persyaratan untuk menyewa mobil?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Persyaratan utama adalah: KTP/SIM asli, Kartu kredit (untuk deposit), dan usia minimal 21 tahun. Untuk WNA diperlukan paspor dan SIM internasional.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Berapa besar deposit yang harus dibayarkan?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Deposit bervariasi tergantung jenis mobil, mulai dari Rp 2.000.000 untuk mobil keluarga hingga Rp 10.000.000 untuk mobil mewah. Deposit akan dikembalikan penuh setelah mobil dikembalikan dalam kondisi baik.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Apakah ada batasan jarak tempuh?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Kami memberikan batasan 200 km/hari untuk mobil keluarga dan 150 km/hari untuk mobil mewah. Kelebihan jarak akan dikenakan biaya Rp 5.000/km untuk mobil keluarga dan Rp 10.000/km untuk mobil mewah.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Bagaimana jika terjadi kecelakaan?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Segera hubungi kami dan laporkan ke polisi untuk mendapatkan surat keterangan. Kami menyediakan asuransi dengan deductible sebesar Rp 5.000.000 yang menjadi tanggungan penyewa.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    <h3>Apakah bisa memperpanjang masa sewa?</h3>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <p>Ya, Anda bisa memperpanjang masa sewa dengan menghubungi kami minimal 24 jam sebelum masa sewa berakhir, tergantung ketersediaan mobil.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sosial Media -->
+    <section class="social" id="social">
+        <div class="section-title">
+            <h2>Hubungi Kami</h2>
+            <p>Ikuti kami di media sosial atau hubungi melalui kontak berikut.</p>
+        </div>
+        <div class="social-container">
+            <a href="#" class="social-link"><i class="fab fa-whatsapp"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+            <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-col">
+                <h3>Tentang Kami</h3>
+                <p>Berkah Rental adalah perusahaan rental mobil terpercaya dengan pengalaman lebih dari 10 tahun melayani pelanggan di seluruh Indonesia.</p>
+            </div>
+            <div class="footer-col">
+                <h3>Layanan</h3>
+                <a href="#">Sewa Harian</a>
+                <a href="#">Sewa Bulanan</a>
+                <a href="#">Sewa Dengan Sopir</a>
+                <a href="#">Lepas Kunci</a>
+                <a href="#">Antar Jemput Bandara</a>
+            </div>
+            <div class="footer-col">
+                <h3>Kontak</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Jl. Contoh No. 123, Jakarta</p>
+                <p><i class="fas fa-phone"></i> (021) 12345678</p>
+                <p><i class="fas fa-envelope"></i> info@BerkahRental.my.id</p>
+            </div>
+            <div class="footer-col">
+                <h3>Jam Operasional</h3>
+                <p>Senin - Jumat: 08.00 - 20.00</p>
+                <p>Sabtu: 08.00 - 18.00</p>
+                <p>Minggu: 09.00 - 15.00</p>
+                <p>Layanan darurat 24 jam</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Berkah Rental. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Navigation
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+        
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+        
+        // Hero Slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slide');
+        const indicators = document.querySelectorAll('.indicator');
+        
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            indicators.forEach(indicator => indicator.classList.remove('active'));
+            
+            slides[index].classList.add('active');
+            indicators[index].classList.add('active');
+            currentSlide = index;
+        }
+        
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % slides.length;
+            showSlide(currentSlide);
+        }
+        
+        // Set interval for auto slide
+        setInterval(nextSlide, 5000);
+        
+        // Add click event to indicators
+        indicators.forEach((indicator, index) => {
+            indicator.addEventListener('click', () => {
+                showSlide(index);
+            });
+        });
+        
+        // FAQ Accordion
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            
+            question.addEventListener('click', () => {
+                item.classList.toggle('active');
+                
+                // Close other items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+            });
+        });
+        
+        // Car Filter
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const carCards = document.querySelectorAll('.car-card');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterBtns.forEach(btn => btn.classList.remove('active'));
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                const filter = btn.getAttribute('data-filter');
+                
+                carCards.forEach(card => {
+                    if (filter === 'all' || card.getAttribute('data-category') === filter) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const offset = 70; // Adjust for fixed header
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                    
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // WhatsApp Form Submission
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const carType = document.getElementById('car-type').value;
+            const pickupDate = document.getElementById('pickup-date').value;
+            const returnDate = document.getElementById('return-date').value;
+            const address = document.getElementById('address').value;
+            const message = document.getElementById('message').value;
+            
+            // Format message for WhatsApp
+            let whatsappMessage = `Halo, saya ingin memesan mobil dengan detail berikut:\n\n`;
+            whatsappMessage += `*Nama:* ${name}\n`;
+            whatsappMessage += `*Email:* ${email}\n`;
+            whatsappMessage += `*Nomor Telepon:* ${phone}\n`;
+            whatsappMessage += `*Jenis Mobil:* ${carType}\n`;
+            whatsappMessage += `*Tanggal Pengambilan:* ${pickupDate}\n`;
+            whatsappMessage += `*Tanggal Pengembalian:* ${returnDate}\n`;
+            if (address) whatsappMessage += `*Alamat Pengantaran:* ${address}\n`;
+            if (message) whatsappMessage += `*Pesan Tambahan:* ${message}\n\n`;
+            whatsappMessage += `Terima kasih.`;
+            
+            // Encode message for URL
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            
+            // WhatsApp API link
+            const whatsappNumber = '6283890087527';
+            const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            // Open WhatsApp in new tab
+            window.open(whatsappUrl, '_blank');
+            
+            // Optional: Reset form after submission
+            this.reset();
+            
+            // Optional: Show success message
+            alert('Formulir berhasil dikirim! Kami akan segera menghubungi Anda melalui WhatsApp.');
+        });
+    </script>
+</body>
+</html>
